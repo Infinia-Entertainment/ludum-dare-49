@@ -35,16 +35,16 @@ namespace Spells
         private void OnCollisionEnter2D(Collision2D other)
         {
             var damageable = other.gameObject.GetComponent<IDamageable>();
-            if (damageable == null)
-                return;
 
-            damageable.OnDamage(Data.Damage);
+            damageable?.OnDamage(Data.Damage);
             OnDestroy();
         }
 
         protected override void OnDestroy()
         {
-            base.OnDestroy();
+            _vfx.SendEvent("OnDestroy");
+            GetComponent<SpriteRenderer>().enabled = false;
+            Destroy(gameObject, 1f);
         }
     }
 }
