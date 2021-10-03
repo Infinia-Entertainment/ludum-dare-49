@@ -7,6 +7,7 @@ namespace Wizard
     public class DummyPlayer : MonoBehaviour
     {
         [SerializeField] private GameObject _fireball;
+        [SerializeField] private Transform _spellFirePoint;
 
         private Collider2D _collider;
 
@@ -19,7 +20,7 @@ namespace Wizard
         {
             if (Input.GetMouseButtonDown(0))
             {
-                var fb = Instantiate(_fireball, transform.position, Quaternion.identity);
+                var fb = Instantiate(_fireball, _spellFirePoint.position, Quaternion.identity);
                 fb.GetComponent<SpellBase>().Launch();
                 Physics2D.IgnoreCollision(fb.GetComponent<Collider2D>(), _collider);
                 UnstabilityManager.Instance.AddUnstability(0.1f);

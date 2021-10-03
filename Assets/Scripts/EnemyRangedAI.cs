@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using Pathfinding;
+using Wizard.Spells;
 
 public class EnemyRangedAI : MonoBehaviour
 {
@@ -87,7 +88,7 @@ public class EnemyRangedAI : MonoBehaviour
         currentWaypointAngle = Vector2.Angle(dirToNextWaypoint, Vector2.up);
         //Debug.Log($"currentWaypointAngle: {currentWaypointAngle} < 15 {currentWaypointAngle < 15}");
 
-        if (disToPlayer < rangedAttackStopDistance && IsPlayerInView(dirToPlayer))
+        if (disToPlayer <= rangedAttackStopDistance && IsPlayerInView(dirToPlayer))
         {
             if (rangedAttackTimer >= 0)
             {
@@ -120,7 +121,7 @@ public class EnemyRangedAI : MonoBehaviour
         CheckForGround();
 
         // Movement
-        if (disToPlayer <= rangedAttackStopDistance || !IsPlayerInView(dirToPlayer))
+        if (disToPlayer > rangedAttackStopDistance || !IsPlayerInView(dirToPlayer))
         {
 
             if (dirToNextWaypoint.x > 0)
@@ -219,8 +220,8 @@ public class EnemyRangedAI : MonoBehaviour
 
     private bool IsPlayerInView(Vector2 dirToPlayer)
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, dirToPlayer, rangedAttackStopDistance);
-        Debug.DrawRay(transform.position, dirToPlayer * rangedAttackStopDistance, Color.red);
+        RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position + Vector2.up, dirToPlayer, rangedAttackStopDistance);
+        Debug.DrawRay((Vector2)transform.position + Vector2.up, dirToPlayer * rangedAttackStopDistance, Color.red);
 
 
         if (hit.collider != null && hit.collider.gameObject.CompareTag("Player")) return true;
@@ -229,6 +230,7 @@ public class EnemyRangedAI : MonoBehaviour
 
     private void ShootRangedAttack()
     {
-        Instantiate(rangedAttackPrefab, (Vector2)transform.position + Vector2.up, Quaternion.identity);
+        var spell = Instantiate(rangedAttackPrefab, (Vector2)transform.position + Vector2.up, Quaternion.identity);
+        spell.GetComponent<SpellBase>().Launch();
     }
 }

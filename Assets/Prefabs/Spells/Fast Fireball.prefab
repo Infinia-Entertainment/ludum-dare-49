@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 1715181185068020791}
   - component: {fileID: 1715181185068020792}
   m_Layer: 0
-  m_Name: Fireball
+  m_Name: Fast Fireball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -253,5 +253,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Data:
     Damage: 1
-  _impulseStrength: 100
+  _impulseStrength: 200
   _vfx: {fileID: 1508425142}
