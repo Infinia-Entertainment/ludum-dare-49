@@ -74,7 +74,14 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        isGrounded = Physics2D.OverlapCircle(playersFeet.position, groundRadius, groundLayer);
+
+            isGrounded = Physics2D.OverlapCircle(playersFeet.position, groundRadius, groundLayer);
+        
+        if (isGrounded && (animator.GetCurrentAnimatorStateInfo(0).IsName("Jump up") || animator.GetCurrentAnimatorStateInfo(0).IsName("Fall")))
+        {
+            print("landed");
+            animator.SetTrigger("Land");
+        }
         if (isGrounded && lockMovement)
             lockMovement = false;
         horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -115,6 +122,7 @@ public class PlayerController : MonoBehaviour
             // jumpCounter = jumpDuration;
             rb.velocity = Vector2.up * jumpForce;
             isGrounded = false;
+            animator.SetTrigger("Jump");
         }
         //if (Input.GetKey(KeyCode.Space) && !releaseJump)
         //{
@@ -182,6 +190,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (!lockMovement || prevWall != WallHit.transform)
                 {
+                animator.SetBool("Slide", true);
                     isSliding = true;
                     rb.velocity = Vector2.zero;
                 }
@@ -189,8 +198,9 @@ public class PlayerController : MonoBehaviour
             else if (horizontalInput != 0 && isSliding)
             {
                 isSliding = false;
-            }
-            if (isSliding)
+            animator.SetBool("Slide", false);
+        }
+            if (isSliding)s
             {
                 rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, slideSpeed, float.MaxValue));
             }
@@ -201,6 +211,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isSliding)
         {
             isSliding = false;
+            animator.SetBool("Slide", false);
             if (WallHit)
             {
                 lockMovement = true;
