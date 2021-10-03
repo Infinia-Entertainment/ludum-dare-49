@@ -39,7 +39,7 @@ namespace Spells
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.gameObject.CompareTag("Wall") && UnstabilityManager.Instance.BouncyWalls && _bounceCount < _maxBounce)
+            if ((other.gameObject.CompareTag("Wall") || other.gameObject.CompareTag("Ground")) && UnstabilityManager.Instance.BouncyWalls && _bounceCount < _maxBounce)
             {
                 _bounceCount++;
                 RigidBody.AddForce(Vector2.Reflect(_lastFrameVelocity, other.contacts[0].normal).normalized * _impulseStrength, ForceMode2D.Impulse);
