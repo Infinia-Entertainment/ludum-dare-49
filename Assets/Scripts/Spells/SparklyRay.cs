@@ -6,7 +6,7 @@ using Wizard.Unstability;
 
 namespace Wizard.Spells
 {
-    public class SparklyRay: SpellBase
+    public class SparklyRay : SpellBase
     {
         [SerializeField] private float _impulseStrength = 100f;
         [SerializeField] private VisualEffect _vfx;
@@ -20,9 +20,9 @@ namespace Wizard.Spells
         protected override void Awake()
         {
             base.Awake();
-            _target = FindObjectOfType<DummyPlayer>().transform;
+            _target = FindObjectOfType<PlayerController>().transform;
         }
-        
+
         protected override void OnLaunch()
         {
             base.OnLaunch();
@@ -44,7 +44,7 @@ namespace Wizard.Spells
                 RigidBody.AddForce(Vector2.Reflect(_lastFrameVelocity, other.contacts[0].normal).normalized * _impulseStrength, ForceMode2D.Impulse);
                 return;
             }
-            
+
             var damageable = other.gameObject.GetComponent<IDamageable>();
 
             damageable?.OnDamage(Data.Damage);
@@ -55,7 +55,7 @@ namespace Wizard.Spells
         {
             GetComponent<Collider2D>().enabled = false;
             RigidBody.velocity = Vector2.zero;
-            
+
             _vfx.SendEvent("OnDestroy");
             Destroy(gameObject, 1f);
         }

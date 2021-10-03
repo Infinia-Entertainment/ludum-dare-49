@@ -7,10 +7,10 @@ namespace Wizard
 {
     public class EnemySpawner : MonoBehaviour
     {
-        [SerializeField]private GameObject _enemyPrefab;
+        [SerializeField] private GameObject _enemyPrefab;
         private void Start()
         {
-            InvokeRepeating(nameof(SpawnEnemy), 0f, 2.5f);
+            InvokeRepeating(nameof(SpawnEnemy), 0f, 0.25f);
         }
 
         private void SpawnEnemy()
