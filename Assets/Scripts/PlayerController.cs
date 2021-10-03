@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public float movSpeed = 10f;
     public float speedBoostMultiplier = 2.5f;
-
+    bool hasSpeedBoost = false;
     [Header("Jump")]
     public float jumpForce = 1f;
     //public float jumpDuration = 0.5f;
@@ -22,35 +22,76 @@ public class PlayerController : MonoBehaviour
     private float dashDir = 0;
     private bool isDashing = false;
 
+    [Header("Wall Bounce")]
+    public float wallBounceTime = 0.7f;
+    public float slideSpeed = 0.5f;
+    public float distanceToWall = 0.5f;
+    public float bounceStrength = 30f;
+    public float bounceHeight = 1f;
+    bool isSliding = false;
+    RaycastHit2D WallHit;
+    private float bounceTime;
+
+    [Header("Ground")]
+    public Transform playersFeet;
+    public LayerMask groundLayer;
+    public float groundRadius;
+    bool isGrounded;
+
+
     private float horizontalInput;
     private Rigidbody2D rb;
     private float jumpCounter;
-    bool isGrounded;
     bool releaseJump;
+    bool isFacingRight;
 
+    bool lockMovement = false;
+
+    Transform prevWall;
     [SerializeField]
     AfterImage afterImages;
+    IEnumerator coroutine;
 
+    Animator animator;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         afterImages = GetComponent<AfterImage>();
+        animator = GetComponent<Animator>();
         dashCounter = dashDuration;
         dashCurrentCD = 0;
     }
     private void Update()
     {
         Dash();
-
         Jump();
+        WallBounce();
+
+        if (isGrounded && rb.velocity.x != 0)
+            animator.SetBool("Walking", true);
+        else
+            animator.SetBool("Walking", false);
     }
     private void FixedUpdate()
     {
+        isGrounded = Physics2D.OverlapCircle(playersFeet.position, groundRadius, groundLayer);
+        if (isGrounded && lockMovement)
+            lockMovement = false;
         horizontalInput = Input.GetAxisRaw("Horizontal");
-        if (isDashing == false)
+
+       
+
+        if (horizontalInput > 0)
+            isFacingRight = true;
+        else if(horizontalInput < 0)
+            isFacingRight = false;
+
+        Slide();
+
+        if (isDashing == false && !lockMovement)
         {
             MoveHorizontally();
-        }
+        }      
     }
 
     void MoveHorizontally()
@@ -59,22 +100,21 @@ public class PlayerController : MonoBehaviour
     }
     void Jump()
     {
-        if (rb.velocity.y < 0) //if falling down
-        {
-            rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
-        }
-        else if (rb.velocity.y > 0 && !Input.GetButton("Jump"))
-        {
-            rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
-        }
+            if (rb.velocity.y < 0) //if falling down
+            {
+                rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+            }
+            else if (rb.velocity.y > 0 && !Input.GetButton("Jump") && lockMovement)
+            {
+                rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+            }
 
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetButtonDown("Jump") && isGrounded && !isSliding)
         {
             // releaseJump = false;
             // jumpCounter = jumpDuration;
             rb.velocity = Vector2.up * jumpForce;
             isGrounded = false;
-
         }
         //if (Input.GetKey(KeyCode.Space) && !releaseJump)
         //{
@@ -90,19 +130,18 @@ public class PlayerController : MonoBehaviour
         //if (Input.GetKeyUp(KeyCode.Space))
         //    releaseJump = true;
     }
-
     void Dash()
     {
         if (dashCurrentCD == 0)
         {
             if (dashDir == 0)
-            {
+            {         
                 if (Input.GetKeyDown(KeyCode.F))
                 {
-                    //    afterImages.activate = true;
-                    if (rb.velocity.x < 0)
+                    afterImages.activate = false;
+                    if (!isFacingRight)
                         dashDir = -1;
-                    else if (rb.velocity.x > 0)
+                    else if (isFacingRight)
                         dashDir = 1;
                 }
             }
@@ -116,7 +155,9 @@ public class PlayerController : MonoBehaviour
                     isDashing = false;
                     dashCurrentCD = dashCoolDown;
                     StartCoroutine("RefreshDashCD");
-                    // afterImages.activate = false;
+                    if(hasSpeedBoost)
+                        afterImages.activate = true;
+
                 }
                 else
                 {
@@ -127,21 +168,65 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+    void Slide()
+    {
+
+        if (WallHit)
+        {
+            prevWall = WallHit.transform;
+        }
+        WallHit = Physics2D.Raycast(transform.position, new Vector2(isFacingRight ? distanceToWall : -distanceToWall, 0), distanceToWall, groundLayer);
+
+            if (WallHit && isGrounded == false && horizontalInput != 0)
+            {
+                if (!lockMovement || prevWall != WallHit.transform)
+                {
+                    isSliding = true;
+                    rb.velocity = Vector2.zero;
+                }
+            }
+            else if (horizontalInput != 0 && isSliding)
+            {
+                isSliding = false;
+            }
+            if (isSliding)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, slideSpeed, float.MaxValue));
+            }
+
+    }
+    void WallBounce()
+    {
+        if (Input.GetButtonDown("Jump") && isSliding)
+        {
+            isSliding = false;
+            if (WallHit)
+            {
+                lockMovement = true;
+                Vector2 dir = gameObject.transform.position - WallHit.transform.position;
+                dir = new Vector2(dir.x < 0 ? -1 : 1, bounceHeight); ;
+                rb.AddForce(dir * bounceStrength, ForceMode2D.Impulse);
+            }
+        }
+    }
     IEnumerator RefreshDashCD()
     {
         yield return new WaitForSeconds(dashCoolDown);
         dashCurrentCD = 0;
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    IEnumerator LockMovement(float lockTime)
     {
-        if (collision.gameObject.tag == "Ground")
-            isGrounded = true;
+        lockMovement = true;
+        yield return new WaitForSeconds(lockTime);
+        lockMovement = false;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Speed Boost")
         {
             movSpeed = movSpeed * speedBoostMultiplier;
+            hasSpeedBoost = true;
             afterImages.activate = true;
         }
     }
