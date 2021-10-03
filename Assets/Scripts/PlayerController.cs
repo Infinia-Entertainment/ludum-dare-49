@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public float movSpeed = 10f;
     public float speedBoostMultiplier = 2.5f;
-
+    bool hasSpeedBoost = false;
     [Header("Jump")]
     public float jumpForce = 1f;
     //public float jumpDuration = 0.5f;
@@ -51,10 +51,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     AfterImage afterImages;
     IEnumerator coroutine;
+
+    Animator animator;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         afterImages = GetComponent<AfterImage>();
+        animator = GetComponent<Animator>();
         dashCounter = dashDuration;
         dashCurrentCD = 0;
     }
@@ -63,6 +66,11 @@ public class PlayerController : MonoBehaviour
         Dash();
         Jump();
         WallBounce();
+
+        if (isGrounded && rb.velocity.x != 0)
+            animator.SetBool("Walking", true);
+        else
+            animator.SetBool("Walking", false);
     }
     private void FixedUpdate()
     {
@@ -70,6 +78,8 @@ public class PlayerController : MonoBehaviour
         if (isGrounded && lockMovement)
             lockMovement = false;
         horizontalInput = Input.GetAxisRaw("Horizontal");
+
+       
 
         if (horizontalInput > 0)
             isFacingRight = true;
@@ -128,7 +138,7 @@ public class PlayerController : MonoBehaviour
             {         
                 if (Input.GetKeyDown(KeyCode.F))
                 {
-                    //    afterImages.activate = true;
+                    afterImages.activate = false;
                     if (!isFacingRight)
                         dashDir = -1;
                     else if (isFacingRight)
@@ -145,7 +155,8 @@ public class PlayerController : MonoBehaviour
                     isDashing = false;
                     dashCurrentCD = dashCoolDown;
                     StartCoroutine("RefreshDashCD");
-                    // afterImages.activate = false;
+                    if(hasSpeedBoost)
+                        afterImages.activate = true;
 
                 }
                 else
@@ -215,6 +226,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Speed Boost")
         {
             movSpeed = movSpeed * speedBoostMultiplier;
+            hasSpeedBoost = true;
             afterImages.activate = true;
         }
     }

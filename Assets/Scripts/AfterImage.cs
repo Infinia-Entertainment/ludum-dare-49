@@ -22,6 +22,9 @@ public class AfterImage : MonoBehaviour
     [Tooltip("How fast will image fade")]
     public float alphaDecrease = 0.02f;
 
+    [Tooltip("Tranform reference for animations")]
+    public Transform transformRef;
+
     [Space(5)]
     [Header("Offsets from rigidbody position of where the image is created")]
     public float xOffset = 0f;
@@ -82,7 +85,11 @@ public class AfterImage : MonoBehaviour
             imgPos = new Vector2(rbRef.position.x + xOffset, rbRef.position.y + yOffset);
 
             //Instantiate new instance of image at imgPos with same rotation under parent object and store it as new GameObject
+           
             GameObject instance = Instantiate(image, imgPos, Quaternion.identity, parent);
+           
+            if(transformRef != null)
+                instance.transform.localScale = transformRef.localScale;
 
             //If the instance is stored in scene and is deactivated, reactivate it
             if (instance.activeSelf == false)
