@@ -73,11 +73,14 @@ public class EnemyAI : MonoBehaviour
             return;
         }
 
-        // Direction Calculation
+        // Calculating stuff
         Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
+        float horizontalDistance = Mathf.Abs(target.position.x - rb.position.x);
+        float verticalDistance = Mathf.Abs(target.position.y - rb.position.y);
+        float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
 
         currentWaypointAngle = Vector2.Angle(direction, Vector2.up);
-        Debug.Log($"currentWaypointAngle: {currentWaypointAngle} < 15 {currentWaypointAngle < 15}");
+        //Debug.Log($"currentWaypointAngle: {currentWaypointAngle} < 15 {currentWaypointAngle < 15}");
 
 
         CheckForGround();
@@ -92,8 +95,6 @@ public class EnemyAI : MonoBehaviour
             rb.velocity = new Vector2(-speed, rb.velocity.y);
         }
 
-        float horizontalDistance = Mathf.Abs(target.position.x - rb.position.x);
-        float verticalDistance = Mathf.Abs(target.position.y - rb.position.y);
 
         // Jump
         if (isJumpEnabled)
@@ -123,7 +124,7 @@ public class EnemyAI : MonoBehaviour
         }
 
         // Next Waypoint
-        float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
+
         if (distance < nextWaypointDistance)
         {
             currentWaypoint++;
