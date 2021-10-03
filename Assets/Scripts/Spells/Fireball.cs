@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.VFX;
 using Wizard;
+using Wizard.Unstability;
 
 namespace Spells
 {
