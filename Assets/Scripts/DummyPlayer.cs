@@ -1,8 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Spells;
 using UnityEngine;
+using Wizard.Spells;
 using Wizard.Unstability;
 
 namespace Wizard

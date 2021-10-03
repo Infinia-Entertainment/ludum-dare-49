@@ -1,13 +1,12 @@
-using System;
-using TMPro;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
-using Wizard;
 using Wizard.Unstability;
 
 namespace Wizard.Spells
 {
-    public class Fireball : SpellBase
+    public class SparklyRay: SpellBase
     {
         [SerializeField] private float _impulseStrength = 100f;
         [SerializeField] private VisualEffect _vfx;
@@ -16,24 +15,24 @@ namespace Wizard.Spells
         private int _bounceCount = 0;
         private Vector2 _lastFrameVelocity;
 
+        private Transform _target;
+
         protected override void Awake()
         {
             base.Awake();
+            _target = FindObjectOfType<DummyPlayer>().transform;
         }
         
         protected override void OnLaunch()
         {
             base.OnLaunch();
 
-            Vector2 direction = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position);
+            Vector2 direction = (_target.position - transform.position);
             RigidBody.AddForce(direction.normalized * _impulseStrength, ForceMode2D.Impulse);
-            _vfx.SetVector3("Velocity", -direction );
         }
 
         private void Update()
         {
-            _vfx.SetVector3("Velocity", -RigidBody.velocity );
-            _vfx.SetVector3("BallPosition", transform.position );
             _lastFrameVelocity = RigidBody.velocity;
         }
 
@@ -55,9 +54,9 @@ namespace Wizard.Spells
         protected override void OnDestroy()
         {
             GetComponent<Collider2D>().enabled = false;
+            RigidBody.velocity = Vector2.zero;
             
             _vfx.SendEvent("OnDestroy");
-            GetComponent<SpriteRenderer>().enabled = false;
             Destroy(gameObject, 1f);
         }
     }

@@ -4,6 +4,8 @@ namespace Wizard.Unstability
     {
         BouncyWall,
         LowGravity,
-        HighGravity
+        HighGravity,
+        SlowTime,
+        FastTime
     }
 }

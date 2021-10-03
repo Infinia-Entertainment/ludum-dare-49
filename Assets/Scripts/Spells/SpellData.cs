@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Spells
+namespace Wizard.Spells
 {
     [System.Serializable]
     public struct SpellData
