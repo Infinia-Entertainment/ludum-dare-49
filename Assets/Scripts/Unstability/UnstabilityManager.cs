@@ -71,6 +71,18 @@ namespace Wizard.Unstability
                         _eventTextAnimation.Play();
                         StartCoroutine(HighGravityEvent());
                         break;
+                    
+                    case  UnstabilityEvent.SlowTime:
+                        _eventText.text = "Slower";
+                        _eventTextAnimation.Play();
+                        StartCoroutine(SlowTimeEvent());
+                        break;
+                    
+                    case  UnstabilityEvent.FastTime:
+                        _eventText.text = "Faster";
+                        _eventTextAnimation.Play();
+                        StartCoroutine(FastTimeEvent());
+                        break;
                 }
             }
         }
@@ -104,5 +116,27 @@ namespace Wizard.Unstability
             Physics2D.gravity = _defaultGravity;        
             _availableUnstabilityEvents.Add(UnstabilityEvent.LowGravity);
             _availableUnstabilityEvents.Add(UnstabilityEvent.HighGravity);        }
+        
+        private IEnumerator SlowTimeEvent()
+        {
+            _availableUnstabilityEvents.RemoveAll(e => e == UnstabilityEvent.SlowTime);
+            _availableUnstabilityEvents.RemoveAll(e => e == UnstabilityEvent.FastTime);
+            Time.timeScale = 0.5f;
+            yield return new WaitForSeconds(30f);
+            Time.timeScale = 1f;     
+            _availableUnstabilityEvents.Add(UnstabilityEvent.SlowTime);
+            _availableUnstabilityEvents.Add(UnstabilityEvent.FastTime);        }
+        
+        private IEnumerator FastTimeEvent()
+        {
+            _availableUnstabilityEvents.RemoveAll(e => e == UnstabilityEvent.SlowTime);
+            _availableUnstabilityEvents.RemoveAll(e => e == UnstabilityEvent.FastTime);
+            Time.timeScale = 1.5f;        
+            yield return new WaitForSeconds(30f);
+            Time.timeScale = 1f;
+            _availableUnstabilityEvents.Add(UnstabilityEvent.SlowTime);
+            _availableUnstabilityEvents.Add(UnstabilityEvent.FastTime);        }
     }
+    
+    
 }

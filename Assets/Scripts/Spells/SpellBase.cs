@@ -1,12 +1,12 @@
 using System;
 using UnityEngine;
 
-namespace Spells
+namespace Wizard.Spells
 {
     public class SpellBase : MonoBehaviour
     {
-        [SerializeField]protected SpellData Data;
-         protected Rigidbody2D RigidBody;
+        [SerializeField] protected SpellData Data;
+        protected Rigidbody2D RigidBody;
 
         protected virtual void Awake()
         {
@@ -17,12 +17,12 @@ namespace Spells
         {
             OnLaunch();
         }
-        
+
         protected virtual void OnLaunch()
         {
             //Play sound here
         }
-        
+
         protected virtual void OnDestroy()
         {
             Destroy(gameObject);
