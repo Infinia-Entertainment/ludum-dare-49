@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using Pathfinding;
 
 public class EnemyAI : MonoBehaviour
@@ -12,30 +13,26 @@ public class EnemyAI : MonoBehaviour
 
     [Header("Jump")]
     public float jumpForce = 1f;
-    //public float jumpDuration = 0.5f;
     public float fallMultiplier = 3f;
-    public float lowJumpMultiplier = 2f;
-
+    public float groundRaycastLength = 0.65f;
+    public LayerMask groundLayerMask;
+    private float currentWaypointAngle = 0;
     [Header("Physics")]
     public float speed = 2.5f;
     public float nextWaypointDistance = 3f;
-    public float jumpNodeHeightRequirement = 0.8f;
-    public float jumpDistanceRequirement = 1;
-    public float jumpModifier = 1.5f;
-    public float jumpCheckOffset = 0.1f;
-    public float groundCheckRayLength = 0.5f;
+    public float jumpNodeHeightRequirement = 1f;
+    public float jumpPlatformProximityRequirement = 1.5f;
+    public float jumpPlatformAngleRequirement = 15;
 
     [Header("Custom Behavior")]
     public bool followEnabled = true;
-    public bool jumpEnabled = true;
+    public bool isJumpEnabled = true;
     public bool directionLookEnabled = true;
-    public LayerMask groundLayer;
     private Path path;
     private int currentWaypoint = 0;
     public bool isGrounded;
     Seeker seeker;
     Rigidbody2D rb;
-    Vector2 RbVelocity;
 
 
     public void Start()
@@ -78,32 +75,51 @@ public class EnemyAI : MonoBehaviour
         // Direction Calculation
         Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
 
-        // Jump
-        if (jumpEnabled && isGrounded)
-        {
-            if (direction.y > jumpNodeHeightRequirement)
-            {
-                if (rb.velocity.y < 0) //if falling down
-                {
-                    rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
-                }
-                else if (rb.velocity.y > 0 && !Input.GetButton("Jump"))
-                {
-                    rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
-                }
+        currentWaypointAngle = Vector2.Angle(direction, Vector2.up);
+        Debug.Log($"currentWaypointAngle: {currentWaypointAngle} < 15 {currentWaypointAngle < 15}");
 
-                if (Vector2.Distance(rb.position, target.position) >= jumpDistanceRequirement)
+
+        CheckForGround();
+
+        // Movement
+        if (direction.x > 0)
+        {
+            rb.velocity = new Vector2(speed, rb.velocity.y);
+        }
+        else if (direction.x < 0)
+        {
+            rb.velocity = new Vector2(-speed, rb.velocity.y);
+        }
+
+        float horizontalDistance = Mathf.Abs(target.position.x - rb.position.x);
+        float verticalDistance = Mathf.Abs(target.position.y - rb.position.y);
+
+        // Jump
+        if (isJumpEnabled)
+        {
+            if (isGrounded)
+            {
+                //has to be high enough to actually need to jump
+                //needs to be close enough need to jump
+                //or at and angle where it seems like you're above on a platform lol
+                if (verticalDistance >= jumpNodeHeightRequirement &&
+                 (horizontalDistance <= jumpPlatformProximityRequirement || currentWaypointAngle < jumpPlatformAngleRequirement))
                 {
-                    // releaseJump = false;
-                    // jumpCounter = jumpDuration;
                     rb.velocity = Vector2.up * jumpForce;
                     isGrounded = false;
                 }
-            }
-        }
 
-        // Movement
-        rb.velocity = new Vector2(direction.x * speed, rb.velocity.y);
+            }
+            else
+            {
+                //if falling down
+                if (rb.velocity.y < 0)
+                {
+                    rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+                }
+            }
+
+        }
 
         // Next Waypoint
         float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
@@ -126,9 +142,27 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    private void CheckForGround()
+    {
+        //Debug.DrawRay(transform.position, Vector2.down * groundRaycastLength, Color.red);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, groundRaycastLength, groundLayerMask);
+
+
+        if (hit.collider != null)
+            isGrounded = true;
+        else
+            isGrounded = false;
+
+    }
+
     private bool TargetInDistance()
     {
         return Vector2.Distance(transform.position, target.transform.position) < activateDistance;
+    }
+
+    void OnDrawGizmos()
+    {
+        //Handles.Label(transform.position, $"{currentWaypointAngle}");
     }
 
     private void OnPathComplete(Path p)
@@ -140,9 +174,5 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Ground")
-            isGrounded = true;
-    }
+
 }
