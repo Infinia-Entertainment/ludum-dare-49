@@ -187,6 +187,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &21507654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -727,6 +730,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &35308193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1780,6 +1786,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &253177956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2095,6 +2104,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &275622240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2300,6 +2312,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &279828380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2505,6 +2520,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &284789362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3031,6 +3049,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &303632185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3236,6 +3257,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &312673323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3877,6 +3901,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &365651534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4082,6 +4109,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &374428021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4292,6 +4322,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &377723450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4497,6 +4530,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &389531766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4702,6 +4738,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &390996342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5228,6 +5267,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &500656939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6506,6 +6548,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &610246941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6821,6 +6866,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &633457304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8090,6 +8138,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &720530761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8589,6 +8640,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &764357725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9107,6 +9161,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &823237309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9755,6 +9812,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &971121896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10290,6 +10350,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &1043437405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10642,6 +10705,24 @@ Transform:
   m_Father: {fileID: 1276212593}
   m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1063279190 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3496190516766683916, guid: 2d6cc48ac958abf43b25c13e730f8f3b, type: 3}
+  m_PrefabInstance: {fileID: 5039951964661432284}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1063279192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1063279190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f44dd2e9f159e8b409ea368af16cbd03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shieldRegenCooldown: 3
 --- !u!1 &1063848967
 GameObject:
   m_ObjectHideFlags: 0
@@ -10706,6 +10787,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &1063848970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10911,6 +10995,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &1085670997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11116,6 +11203,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &1086603851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11309,6 +11399,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &1095518562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12048,6 +12141,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &1212039827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12572,6 +12668,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &1293217355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12777,6 +12876,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &1295144677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13343,6 +13445,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &1359984557
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13883,6 +13988,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &1393112149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15534,6 +15642,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &1560753261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16766,6 +16877,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &1674452188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16971,6 +17085,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &1677596506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17286,6 +17403,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &1698128790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17812,6 +17932,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &1717914842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18448,6 +18571,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &1856558791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19405,6 +19531,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &1996552776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19720,6 +19849,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &2025989125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20524,6 +20656,9 @@ MonoBehaviour:
   isJumpEnabled: 1
   dirToNextWaypointLookEnabled: 1
   isGrounded: 0
+  meleeAttackDamage: 1
+  meleeAttackDistance: 1.2
+  meleeAttackFirerate: 1.5
 --- !u!114 &2064158242
 MonoBehaviour:
   m_ObjectHideFlags: 0

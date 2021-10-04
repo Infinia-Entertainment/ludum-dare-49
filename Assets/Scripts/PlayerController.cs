@@ -46,6 +46,8 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     bool lockMovement = false;
     bool unlockInProcess = false;
+
+    [SerializeField] private ForceShield _forceShield;
     Transform prevWall;
     [SerializeField] AfterImage afterImages;
     IEnumerator coroutine;
@@ -58,6 +60,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         rb = GetComponent<Rigidbody2D>();
         afterImages = GetComponent<AfterImage>();
+        _forceShield = GetComponentInChildren<ForceShield>();
         // _animator = GetComponent<Animator>();
     }
     
@@ -302,7 +305,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     public void OnDamage(int damage)
     {
-        _currentHealth -= damage;
+        _currentHealth -= _forceShield.ProcessShield(damage);
         if (_currentHealth <= 0) OnDeath();
     }
 
