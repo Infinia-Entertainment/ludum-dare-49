@@ -6,6 +6,7 @@ namespace Wizard.Spells
     public class SpellBase : MonoBehaviour
     {
         [SerializeField] protected SpellData Data;
+        [SerializeField] protected bool _isFromPlayer;
         protected Rigidbody2D RigidBody;
 
         protected virtual void Awake()
@@ -13,7 +14,7 @@ namespace Wizard.Spells
             RigidBody = GetComponent<Rigidbody2D>();
         }
 
-        public void Launch()
+        public virtual void Launch(Vector2 _target, bool isFromPlayer)
         {
             OnLaunch();
         }
@@ -23,6 +24,10 @@ namespace Wizard.Spells
             //Play sound here
         }
 
+        public void Destroy()
+        {
+            OnDestroy();
+        }
         protected virtual void OnDestroy()
         {
             Destroy(gameObject);

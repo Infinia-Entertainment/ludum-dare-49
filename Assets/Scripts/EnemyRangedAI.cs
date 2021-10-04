@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using Pathfinding;
+using Wizard.Spells;
 
 public class EnemyRangedAI : MonoBehaviour
 {
@@ -47,7 +48,7 @@ public class EnemyRangedAI : MonoBehaviour
     float verticalDistance;
     float disToNextWaypoint;
     float disToPlayer;
-
+    bool hasSeenPlayer = false;
     public void Start()
     {
         seeker = GetComponent<Seeker>();
@@ -59,7 +60,7 @@ public class EnemyRangedAI : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (TargetInDistance() && followEnabled)
+        if (TargetInDistance() && hasSeenPlayer && followEnabled)
         {
             PathFollow();
         }
@@ -67,6 +68,7 @@ public class EnemyRangedAI : MonoBehaviour
 
     private void Update()
     {
+        if (IsPlayerInView()) hasSeenPlayer = true;
         // Reached end of path or there's no path
         if (path == null || currentWaypoint >= path.vectorPath.Count)
         {
@@ -87,7 +89,7 @@ public class EnemyRangedAI : MonoBehaviour
         currentWaypointAngle = Vector2.Angle(dirToNextWaypoint, Vector2.up);
         //Debug.Log($"currentWaypointAngle: {currentWaypointAngle} < 15 {currentWaypointAngle < 15}");
 
-        if (disToPlayer < rangedAttackStopDistance && IsPlayerInView(dirToPlayer))
+        if (disToPlayer <= rangedAttackStopDistance && IsPlayerInView())
         {
             if (rangedAttackTimer >= 0)
             {
@@ -120,7 +122,7 @@ public class EnemyRangedAI : MonoBehaviour
         CheckForGround();
 
         // Movement
-        if (disToPlayer <= rangedAttackStopDistance || !IsPlayerInView(dirToPlayer))
+        if (disToPlayer > rangedAttackStopDistance || !IsPlayerInView())
         {
 
             if (dirToNextWaypoint.x > 0)
@@ -217,10 +219,10 @@ public class EnemyRangedAI : MonoBehaviour
         }
     }
 
-    private bool IsPlayerInView(Vector2 dirToPlayer)
+    private bool IsPlayerInView()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, dirToPlayer, rangedAttackStopDistance);
-        Debug.DrawRay(transform.position, dirToPlayer * rangedAttackStopDistance, Color.red);
+        RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position + Vector2.up, dirToPlayer, rangedAttackStopDistance);
+        Debug.DrawRay((Vector2)transform.position + Vector2.up, dirToPlayer * rangedAttackStopDistance, Color.red);
 
 
         if (hit.collider != null && hit.collider.gameObject.CompareTag("Player")) return true;
@@ -229,6 +231,7 @@ public class EnemyRangedAI : MonoBehaviour
 
     private void ShootRangedAttack()
     {
-        Instantiate(rangedAttackPrefab, (Vector2)transform.position + Vector2.up, Quaternion.identity);
+        var spell = Instantiate(rangedAttackPrefab, (Vector2)transform.position + Vector2.up, Quaternion.identity);
+        spell.GetComponent<SpellBase>().Launch((Vector2)target.position + Vector2.up, false);
     }
 }

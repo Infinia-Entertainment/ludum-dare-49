@@ -75,8 +75,8 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
 
-            isGrounded = Physics2D.OverlapCircle(playersFeet.position, groundRadius, groundLayer);
-        
+        isGrounded = Physics2D.OverlapCircle(playersFeet.position, groundRadius, groundLayer);
+
         if (isGrounded && (animator.GetCurrentAnimatorStateInfo(0).IsName("Jump up") || animator.GetCurrentAnimatorStateInfo(0).IsName("Fall")))
         {
             print("landed");
@@ -91,11 +91,11 @@ public class PlayerController : MonoBehaviour
         }
         horizontalInput = Input.GetAxisRaw("Horizontal");
 
-       
+
 
         if (horizontalInput > 0)
             isFacingRight = true;
-        else if(horizontalInput < 0)
+        else if (horizontalInput < 0)
             isFacingRight = false;
 
         Slide();
@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour
         if (isDashing == false && !lockMovement)
         {
             MoveHorizontally();
-        }      
+        }
     }
 
     void MoveHorizontally()
@@ -112,14 +112,14 @@ public class PlayerController : MonoBehaviour
     }
     void Jump()
     {
-            if (rb.velocity.y < 0) //if falling down
-            {
-                rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
-            }
-            else if (rb.velocity.y > 0 && !Input.GetButton("Jump") && lockMovement)
-            {
-                rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
-            }
+        if (rb.velocity.y < 0) //if falling down
+        {
+            rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+        }
+        else if (rb.velocity.y > 0 && !Input.GetButton("Jump") && lockMovement)
+        {
+            rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+        }
 
         if (Input.GetButtonDown("Jump") && isGrounded && !isSliding)
         {
@@ -148,7 +148,7 @@ public class PlayerController : MonoBehaviour
         if (dashCurrentCD == 0)
         {
             if (dashDir == 0)
-            {         
+            {
                 if (Input.GetKeyDown(KeyCode.F))
                 {
                     afterImages.activate = false;
@@ -168,7 +168,7 @@ public class PlayerController : MonoBehaviour
                     isDashing = false;
                     dashCurrentCD = dashCoolDown;
                     StartCoroutine("RefreshDashCD");
-                    if(hasSpeedBoost)
+                    if (hasSpeedBoost)
                         afterImages.activate = true;
 
                 }
@@ -200,24 +200,25 @@ public class PlayerController : MonoBehaviour
             Debug.DrawRay(transform.position, new Vector2(distanceToWall, 0), Color.blue);
         }
 
-            if (WallHit && isGrounded == false && horizontalInput != 0)
+        if (WallHit && isGrounded == false && horizontalInput != 0)
+        {
+            if (!lockMovement || prevWall != WallHit.transform)
             {
-                if (!lockMovement || prevWall != WallHit.transform)
-                {
                     animator.SetBool("Slide", true);
                     isSliding = true;
                     rb.velocity = Vector2.zero;
-                }
             }
-            else if (horizontalInput != 0 && isSliding)
-            {
-                isSliding = false;
+        }
+        else if (horizontalInput != 0 && isSliding)
+        {
+            isSliding = false;
             animator.SetBool("Slide", false);
         }
-            if (isSliding)
-            {
-                rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, slideSpeed, float.MaxValue));
-            }
+
+        if (isSliding)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, slideSpeed, float.MaxValue));
+        }
 
     }
     void WallBounce()
@@ -229,7 +230,7 @@ public class PlayerController : MonoBehaviour
             if (WallHit)
             {
                 lockMovement = true;
-                Vector2 dir = gameObject.transform.position - WallHit.transform.position;
+                Vector2 dir = (Vector2)gameObject.transform.position - WallHit.point;
                 dir = new Vector2(dir.x < 0 ? -1 : 1, bounceHeight); ;
                 rb.AddForce(dir * bounceStrength, ForceMode2D.Impulse);
             }

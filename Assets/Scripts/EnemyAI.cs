@@ -8,7 +8,7 @@ public class EnemyAI : MonoBehaviour
 {
     [Header("Pathfinding")]
     public Transform target;
-    public float activateDistance = 50f;
+    public float activateDistance = 25f;
     public float pathUpdateSeconds = 0.25f;
 
     [Header("Jump")]
@@ -27,13 +27,20 @@ public class EnemyAI : MonoBehaviour
     [Header("Custom Behavior")]
     public bool followEnabled = true;
     public bool isJumpEnabled = true;
-    public bool directionLookEnabled = true;
+    public bool dirToNextWaypointLookEnabled = true;
     private Path path;
     private int currentWaypoint = 0;
     public bool isGrounded;
     Seeker seeker;
     Rigidbody2D rb;
 
+    Vector2 dirToNextWaypoint;
+    Vector2 dirToPlayer;
+    float horizontalDistance;
+    float verticalDistance;
+    float disToNextWaypoint;
+    float disToPlayer;
+    bool hasSeenPlayer = false;
 
     public void Start()
     {
@@ -44,9 +51,33 @@ public class EnemyAI : MonoBehaviour
         InvokeRepeating("UpdatePath", 0f, pathUpdateSeconds);
     }
 
+    private void Update()
+    {
+        if (IsPlayerInView()) hasSeenPlayer = true;
+
+        // Reached end of path or there's no path
+        if (path == null || currentWaypoint >= path.vectorPath.Count)
+        {
+            return;
+        }
+
+        // Calculating stuff
+        dirToNextWaypoint = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
+        dirToPlayer = ((Vector2)target.position - rb.position).normalized;
+
+
+        disToNextWaypoint = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
+        disToPlayer = Vector2.Distance(rb.position, target.position);
+
+        horizontalDistance = Mathf.Abs(target.position.x - rb.position.x);
+        verticalDistance = Mathf.Abs(target.position.y - rb.position.y);
+
+        currentWaypointAngle = Vector2.Angle(dirToNextWaypoint, Vector2.up);
+        //Debug.Log($"currentWaypointAngle: {currentWaypointAngle} < 15 {currentWaypointAngle < 15}");
+    }
     private void FixedUpdate()
     {
-        if (TargetInDistance() && followEnabled)
+        if (TargetInDistance() && hasSeenPlayer && followEnabled)
         {
             PathFollow();
         }
@@ -73,24 +104,18 @@ public class EnemyAI : MonoBehaviour
             return;
         }
 
-        // Calculating stuff
-        Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
-        float horizontalDistance = Mathf.Abs(target.position.x - rb.position.x);
-        float verticalDistance = Mathf.Abs(target.position.y - rb.position.y);
-        float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
-
-        currentWaypointAngle = Vector2.Angle(direction, Vector2.up);
+        currentWaypointAngle = Vector2.Angle(dirToNextWaypoint, Vector2.up);
         //Debug.Log($"currentWaypointAngle: {currentWaypointAngle} < 15 {currentWaypointAngle < 15}");
 
 
         CheckForGround();
 
         // Movement
-        if (direction.x > 0)
+        if (dirToNextWaypoint.x > 0)
         {
             rb.velocity = new Vector2(speed, rb.velocity.y);
         }
-        else if (direction.x < 0)
+        else if (dirToNextWaypoint.x < 0)
         {
             rb.velocity = new Vector2(-speed, rb.velocity.y);
         }
@@ -125,13 +150,13 @@ public class EnemyAI : MonoBehaviour
 
         // Next Waypoint
 
-        if (distance < nextWaypointDistance)
+        if (disToNextWaypoint < nextWaypointDistance)
         {
             currentWaypoint++;
         }
 
-        // Direction Graphics Handling
-        if (directionLookEnabled)
+        // dirToNextWaypoint Graphics Handling
+        if (dirToNextWaypointLookEnabled)
         {
             if (rb.velocity.x > 0.05f)
             {
@@ -176,5 +201,13 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    private bool IsPlayerInView()
+    {
+        RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position + Vector2.up, dirToPlayer, activateDistance);
+        //Debug.DrawRay((Vector2)transform.position + Vector2.up, dirToPlayer * activateDistance, Color.red);
 
+
+        if (hit.collider != null && hit.collider.gameObject.CompareTag("Player")) return true;
+        else return false;
+    }
 }

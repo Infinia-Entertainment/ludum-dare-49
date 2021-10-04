@@ -26,14 +26,14 @@ namespace Wizard
             if (Time.time > _nextSpell)
             {
                 FireSpell();
-                _nextSpell = Time.time+ Random.Range(_minTimeBetweenSpell, _maxTimeBetweenSpell);
+                _nextSpell = Time.time + Random.Range(_minTimeBetweenSpell, _maxTimeBetweenSpell);
             }
         }
 
         private void FireSpell()
         {
             var spell = Instantiate(_spell, transform.position, Quaternion.identity);
-            spell.GetComponent<SpellBase>().Launch();
+            //spell.GetComponent<SpellBase>().Launch();
         }
     }
 }
