@@ -10,7 +10,6 @@ namespace Wizard.Spells
     {
         [SerializeField] private float _impulseStrength = 100f;
         [SerializeField] private VisualEffect _vfx;
-        [SerializeField] private GameObject _bounceObj;
 
         private Transform _target;
 
