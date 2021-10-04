@@ -10,10 +10,7 @@ namespace Wizard.Spells
     {
         [SerializeField] private float _impulseStrength = 100f;
         [SerializeField] private VisualEffect _vfx;
-
-        private int _maxBounce = 3;
-        private int _bounceCount = 0;
-        private Vector2 _lastFrameVelocity;
+        [SerializeField] private GameObject _bounceObj;
 
         private Transform _target;
 
@@ -23,32 +20,39 @@ namespace Wizard.Spells
             _target = FindObjectOfType<PlayerController>().transform;
         }
 
+        public override void Launch(Vector2 _target, bool isFromPlayer)
+        {
+            _isFromPlayer = isFromPlayer;
+            var dirToTarget = _target - (Vector2)transform.position;
+
+            Debug.Log($"{dirToTarget.normalized} * { _impulseStrength} = {dirToTarget.normalized * _impulseStrength}");
+
+            RigidBody.AddForce(dirToTarget.normalized * _impulseStrength, ForceMode2D.Impulse);
+
+            OnLaunch();
+        }
+
         protected override void OnLaunch()
         {
             base.OnLaunch();
-
-            Vector2 direction = (_target.position - transform.position);
-            RigidBody.AddForce(direction.normalized * _impulseStrength, ForceMode2D.Impulse);
         }
 
-        private void Update()
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            _lastFrameVelocity = RigidBody.velocity;
-        }
+            IDamageable damageable;
 
-        private void OnCollisionEnter2D(Collision2D other)
-        {
-            if ((other.gameObject.CompareTag("Wall") || other.gameObject.CompareTag("Ground")) && UnstabilityManager.Instance.BouncyWalls && _bounceCount < _maxBounce)
+            if (_isFromPlayer && other.gameObject.CompareTag("Enemy"))
             {
-                _bounceCount++;
-                RigidBody.AddForce(Vector2.Reflect(_lastFrameVelocity, other.contacts[0].normal).normalized * _impulseStrength, ForceMode2D.Impulse);
-                return;
+                damageable = other.gameObject.GetComponent<IDamageable>();
+                damageable?.OnDamage(Data.Damage);
+                OnDestroy();
             }
-
-            var damageable = other.gameObject.GetComponent<IDamageable>();
-
-            damageable?.OnDamage(Data.Damage);
-            OnDestroy();
+            else if (!_isFromPlayer && other.gameObject.CompareTag("Player"))
+            {
+                damageable = other.gameObject.GetComponent<IDamageable>();
+                damageable?.OnDamage(Data.Damage);
+                OnDestroy();
+            }
         }
 
         protected override void OnDestroy()
