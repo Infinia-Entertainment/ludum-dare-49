@@ -25,7 +25,7 @@ namespace Wizard.Spells
             _isFromPlayer = isFromPlayer;
             var dirToTarget = _target - (Vector2)transform.position;
 
-            Debug.Log($"{dirToTarget.normalized} * { _impulseStrength} = {dirToTarget.normalized * _impulseStrength}");
+            // Debug.Log($"{dirToTarget.normalized} * { _impulseStrength} = {dirToTarget.normalized * _impulseStrength}");
 
             RigidBody.AddForce(dirToTarget.normalized * _impulseStrength, ForceMode2D.Impulse);
 
