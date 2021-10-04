@@ -8,6 +8,7 @@ public class EnemyAI : MonoBehaviour
 {
     [Header("Pathfinding")]
     public Transform target;
+
     public float activateDistance = 25f;
     public float pathUpdateSeconds = 0.25f;
 
@@ -42,11 +43,21 @@ public class EnemyAI : MonoBehaviour
     float disToPlayer;
     bool hasSeenPlayer = false;
 
+    [Header("Melee Attack")]
+    public int meleeAttackDamage = 1;
+    public float meleeAttackDistance = 1.2f;
+
+    public float meleeAttackFirerate = 1.5f;
+    private float meleeAttackTimer = 0;
+
+    private PlayerController playerController;
+
     public void Start()
     {
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
-        target = FindObjectOfType<PlayerController>().transform;
+        playerController = FindObjectOfType<PlayerController>();
+        target = playerController.transform;
 
         InvokeRepeating("UpdatePath", 0f, pathUpdateSeconds);
     }
@@ -54,6 +65,14 @@ public class EnemyAI : MonoBehaviour
     private void Update()
     {
         if (IsPlayerInView()) hasSeenPlayer = true;
+
+
+        if (meleeAttackTimer > 0) meleeAttackTimer -= Time.deltaTime;
+        else if (disToPlayer <= meleeAttackDistance && IsPlayerInView())
+        {
+            AttackPlayer(meleeAttackDamage);
+            meleeAttackTimer = meleeAttackFirerate;
+        }
 
         // Reached end of path or there's no path
         if (path == null || currentWaypoint >= path.vectorPath.Count)
@@ -74,6 +93,7 @@ public class EnemyAI : MonoBehaviour
 
         currentWaypointAngle = Vector2.Angle(dirToNextWaypoint, Vector2.up);
         //Debug.Log($"currentWaypointAngle: {currentWaypointAngle} < 15 {currentWaypointAngle < 15}");
+
     }
     private void FixedUpdate()
     {
@@ -209,5 +229,10 @@ public class EnemyAI : MonoBehaviour
 
         if (hit.collider != null && hit.collider.gameObject.CompareTag("Player")) return true;
         else return false;
+    }
+
+    private void AttackPlayer(int damage)
+    {
+        playerController.OnDamage(damage);
     }
 }

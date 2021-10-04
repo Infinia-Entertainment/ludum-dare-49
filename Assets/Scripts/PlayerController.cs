@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Wizard;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamageable
 {
     public float movSpeed = 10f;
     public float speedBoostMultiplier = 2.5f;
@@ -49,14 +50,27 @@ public class PlayerController : MonoBehaviour
     [SerializeField] AfterImage afterImages;
     IEnumerator coroutine;
 
+
     [SerializeField] private Animator _animator;
     [SerializeField] private Transform _wizardTransform;
 
-    private void Start()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         afterImages = GetComponent<AfterImage>();
         // _animator = GetComponent<Animator>();
+    }
+    
+    Animator animator;
+
+    private int _currentHealth;
+    private int _maxHealth = 30;
+    public int CurrentHealth => _currentHealth;
+    public int MaxHealth => _maxHealth;
+
+    private void Start()
+    {
+        _currentHealth = _maxHealth;
         dashCounter = dashDuration;
         dashCurrentCD = 0;
     }
@@ -220,7 +234,6 @@ public class PlayerController : MonoBehaviour
         {
             if (!lockMovement || prevWall != WallHit.transform)
             {
-                // _animator.SetBool("Slide", true);
                 isSliding = true;
                 rb.velocity = Vector2.zero;
             }
@@ -285,5 +298,17 @@ public class PlayerController : MonoBehaviour
         {
             isSliding = false;
         }
+    }
+
+    public void OnDamage(int damage)
+    {
+        _currentHealth -= damage;
+        if (_currentHealth <= 0) OnDeath();
+    }
+
+    public void OnDeath()
+    {
+        Debug.Log("player Died");
+        Destroy(gameObject);
     }
 }
