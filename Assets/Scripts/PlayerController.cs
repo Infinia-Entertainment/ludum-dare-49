@@ -220,7 +220,7 @@ public class PlayerController : MonoBehaviour
         {
             if (!lockMovement || prevWall != WallHit.transform)
             {
-                _animator.SetBool("Slide", true);
+                // _animator.SetBool("Slide", true);
                 isSliding = true;
                 rb.velocity = Vector2.zero;
             }
@@ -228,7 +228,7 @@ public class PlayerController : MonoBehaviour
         else if (horizontalInput != 0 && isSliding)
         {
             isSliding = false;
-            _animator.SetBool("Slide", false);
+            // _animator.SetBool("Slide", false);
         }
 
         if (isSliding)
