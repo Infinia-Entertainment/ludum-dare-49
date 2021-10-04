@@ -94,7 +94,7 @@ MonoBehaviour:
   m_ImportDependencies: []
   m_GraphVersion: 6
   m_ResourceVersion: 1
-  m_saved: 1
+  m_saved: 0
   m_SubgraphDependencies: []
   m_CategoryPath: 
 --- !u!2058629511 &8926484042661614527
@@ -1324,7 +1324,7 @@ MonoBehaviour:
         m_SerializableType: UnityEditor.VFX.Sphere, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       m_SerializableObject: '{"center":{"x":0.0,"y":0.0,"z":0.0},"radius":0.15000000596046449}'
-    m_Space: 0
+    m_Space: 1
   m_Property:
     name: Sphere
     m_serializedType:
@@ -1351,7 +1351,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614656}
   - {fileID: 8926484042661614657}
   m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 1
+  m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_MasterSlot: {fileID: 8926484042661614653}
   m_MasterData:
