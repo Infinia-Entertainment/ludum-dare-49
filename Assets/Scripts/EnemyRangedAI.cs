@@ -232,6 +232,6 @@ public class EnemyRangedAI : MonoBehaviour
     private void ShootRangedAttack()
     {
         var spell = Instantiate(rangedAttackPrefab, (Vector2)transform.position + Vector2.up, Quaternion.identity);
-        spell.GetComponent<SpellBase>().Launch();
+        spell.GetComponent<SpellBase>().Launch((Vector2)target.position + Vector2.up, false);
     }
 }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4024718077592445473}
   - component: {fileID: 2251189739549371446}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,6 +83,69 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1372110388791624134
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 721700180069492864}
+  - component: {fileID: 3825142108407809902}
+  - component: {fileID: 4498150880599490433}
+  m_Layer: 11
+  m_Name: Bounce Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &721700180069492864
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1372110388791624134}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.38, y: -1.02, z: 0}
+  m_LocalScale: {x: 0.049999997, y: 0.049999997, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6243189834217142294}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3825142108407809902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1372110388791624134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3fb65ed2e653c347a9026ad1de8fdab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _impulseStrength: 100
+  RigidBody: {fileID: 9147242444337388646}
+  spell: {fileID: 6150093579079312776}
+--- !u!58 &4498150880599490433
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1372110388791624134}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.25
 --- !u!1 &1847341040048345693
 GameObject:
   m_ObjectHideFlags: 0
@@ -95,7 +158,7 @@ GameObject:
   - component: {fileID: 6150093579079312776}
   - component: {fileID: 9147242444337388646}
   - component: {fileID: 7227203139734771562}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: SparklyRay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,6 +178,7 @@ Transform:
   m_Children:
   - {fileID: 4024718077592445473}
   - {fileID: 8240751726700667881}
+  - {fileID: 721700180069492864}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -132,8 +196,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Data:
     Damage: 1
+  _isFromPlayer: 0
   _impulseStrength: 100
   _vfx: {fileID: 2348672134801113208}
+  _bounceObj: {fileID: 0}
 --- !u!50 &9147242444337388646
 Rigidbody2D:
   serializedVersion: 4
@@ -165,7 +231,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -182,7 +248,7 @@ GameObject:
   - component: {fileID: 8240751726700667881}
   - component: {fileID: 2348672134801113208}
   - component: {fileID: 8802999251032530154}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: SparklyRay
   m_TagString: Untagged
   m_Icon: {fileID: 0}

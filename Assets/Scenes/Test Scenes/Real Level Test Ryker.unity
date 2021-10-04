@@ -397,7 +397,7 @@ GameObject:
   - component: {fileID: 160608280}
   m_Layer: 7
   m_Name: ranged enemy fireball
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -691,7 +691,7 @@ GameObject:
   - component: {fileID: 223034191}
   m_Layer: 7
   m_Name: ranged enemy ray
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1042,7 +1042,7 @@ GameObject:
   - component: {fileID: 327251432}
   m_Layer: 7
   m_Name: ranged enemy fireball (5)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1397,7 +1397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbeb745e598ab5d43a6b0f774c4a596a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fireball: {fileID: 1715181185068020793, guid: 378a61c460b459849923492b4f758551, type: 3}
+  _fireball: {fileID: 1715181185068020793, guid: 413e4d0e952d9a04888e462877382276, type: 3}
   _sparkleSpell: {fileID: 1847341040048345693, guid: c317abb5234110248a8e785ff2012411, type: 3}
   _spellFirePoint: {fileID: 1322253344}
 --- !u!1 &409739624
@@ -1527,7 +1527,7 @@ GameObject:
   - component: {fileID: 551760787}
   m_Layer: 7
   m_Name: ranged enemy ray (7)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2068,7 +2068,7 @@ GameObject:
   - component: {fileID: 636967045}
   m_Layer: 7
   m_Name: ranged enemy fireball (2)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2499,7 +2499,7 @@ GameObject:
   - component: {fileID: 687599717}
   m_Layer: 7
   m_Name: ranged enemy ray (1)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2793,7 +2793,7 @@ GameObject:
   - component: {fileID: 775491314}
   m_Layer: 7
   m_Name: ranged enemy fireball (1)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3118,7 +3118,7 @@ GameObject:
   - component: {fileID: 823237314}
   m_Layer: 7
   m_Name: melee enemy (1)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3323,7 +3323,7 @@ GameObject:
   - component: {fileID: 828336389}
   m_Layer: 7
   m_Name: ranged enemy ray (3)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3723,7 +3723,7 @@ GameObject:
   - component: {fileID: 944869630}
   m_Layer: 6
   m_Name: Botder Right
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4057,7 +4057,7 @@ GameObject:
   - component: {fileID: 1095518567}
   m_Layer: 7
   m_Name: melee enemy (2)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4293,7 +4293,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3009834367422926109, guid: b5284b8661afb1d4aa60e0675d915d43, type: 3}
       propertyPath: data.dataString
-      value: UEsDBBQAAAgIAAAYIewyTOiGdwIAAB0FAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFlVE1zmzAQ/SsenWsPEBvj3lrHcXrIx8Tp5MJFoMVoLCRGErGdjP97VwICcU+I93ZXb98ufBIuTQ25VXqrOXtQDMjPCXFn8mMykPdwonsld/wD+pg3zmzpgqiPeaGWK8RDl2ZUBVbz/JfcCxccINhIXihdbdge1spYg3BBhQGktLIuWyL0OSEnfExXLuWMp2jpTh94WgWTCx5zkBb0KPRmloTzeLWMlptpEHdp0+UsXiZRMkds2RUIZ8skCW9W85UDfbFG5oJWNTDX2VAzDMJZtOhKxbEPldh3FxW0ZK6E4KbTTey59r7s6hI0OGMYp2iD1zrH1xL4vrSupXHuU1EYsJ1Hmp5vuUY326Lkt2otrqg5tOreqWjcNfHci2prPvxHT0NPF1pV9/21YeCusCXPDy/0nFNjRyMYw7eD7tB7dKTiQDMBbyXIR7XVqpEMSasbl9oYiG6H16/O1iXkhwFvpV6BTT2Y3k+8n7fr4eKbP60FrzJv/LwFdkJ5t/2agMbR/EHBfolMVwJRp+KvgVe6H29bR9xxbSxSXZfSyctUo10o2XjPXDeNXSstwcOd6BokFfb8jGXs9QSvuNG1V8wddd9Vd3nH9Z/LVYqHh/gguKKe1fFrWKZUxwcw5VNjBZcwiHbEI/q0VlK2C2a+ky5r1+iC5qOsfcPZ980i2YJmSZKwKGIZo9FqmsOCZVGwSLI8iIsgI371uMQ2qXhudXbu4NDkUFzimvV/m8lW09rvOtP0uOUflRrp47JQu1wDyKe2Qu+QAY2X4FfJNoyjPzuwlks/bvKZEqHyA7D0q1DqO92crKbpUCUlNX9X1iEpWfvfS0ou5PIPUEsDBBQAAAgIAAAYIexbLLiPbQAAAHgAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0jM01VFQSi9KLMgoBooYgjilmSkgdrRSkmlikoWFRYqRUUpSSqKRpW5yqmlKkpGBqUVSsoFZmkGSUixQfUllQapfYm4qRE9AYklGWmZeSmZeup57UWaKO8hopdhaAFBLAQItABQAAAgIAAAYIewyTOiGdwIAAB0FAAALACQAAAAAAAAAAAAAAAAAAABncmFwaDAuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAAAYIexbLLiPbQAAAHgAAAAJACQAAAAAAAAAAAAAAMQCAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAIAAgC4AAAAfAMAAAAA
+      value: UEsDBBQAAAgIAAAYIeyXaxIMdgIAAB4FAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFlVE1zmzAQ/SsenWsPEBvj3lrHcXrIx8Tp5MJFoMVoLCRGErGdjP97VwICcU+I9/bz7UqfhEtTQ26V3mrOHhQD8nNC3Jn8mAzkPZzoXskd/4De5o0zWzoj6m1eqOUK8dC5GVWB1Tz/JffCGQcINpIXSlcbtoe1MtYgXFBhACmtrPOWCH1OyAk/05VzOeMpWrrTB55WweSCxxykBT0yvZkl4TxeLaPlZhrEndt0OYuXSZTMEVt2AcLZMknCm9V85UAfrJG5oFUNzHU2xAyDcBYtulBx7E0l9t1ZBS2ZKyG46eom9lx7XXZ1CRqcMIxTlMHXOsffEvi+tK6lse9TURiwnUaanm+5RjXboOS3aiWuqDm01b1T0bg08dwX1cZ8+I+ehp4utKru+7Rh4FLYkueHF3rOqbGjEYzh26Hu0Gt0pOJAMwFvJchHtdWqkQxJqxvn2hiIboffr87WJeSHAW9LvQKbehC9n3g/b9fDxTd/WgteZV74eQvshPJq+zUBjaP5gwX7JTJdCERdFX8NvNL9eNs64o5rY5HqupSuvEw12pmSjdfMddPYtdISPNwVXYOkwp6fMYy9nuAVN0p7xdxRd6+65B3XX5crFw8P9kFwRT2r49ewTKmOD2DKp8YKLmEo2hGPqNNaSdkumPlOOq9dowuaj7z2DWffN4tkC5olScKiiGWMRqtpDguWRcEiyfIgLoKM+NXjEtuk4rmts1MHhyaH4BLXrH9tJltNa7/rTNPjln9UajwzLgu1yzWAfGpD9IQBjVnwWrIN4yjQDqzl0s+bfKZEqPwALP3KmfpWNyeraTpESUnN35V1SErW/n1JyYVc/gFQSwMEFAAACAgAABgh7FssuI9tAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTVUVBKL0osyCgGihiCOKWZKSB2tFKSaWKShYVFipFRSlJKopGlbnKqaUqSkYGpRVKygVmaQZJSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAABgh7JdrEgx2AgAAHgUAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAABgh7FssuI9tAAAAeAAAAAkAJAAAAAAAAAAAAAAAwwIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAAB7AwAAAAA=
       objectReference: {fileID: 0}
     - target: {fileID: 6023652193167953807, guid: b5284b8661afb1d4aa60e0675d915d43, type: 3}
       propertyPath: m_RootOrder
@@ -4362,7 +4362,7 @@ GameObject:
   - component: {fileID: 1238106770}
   m_Layer: 7
   m_Name: melee enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4761,7 +4761,7 @@ GameObject:
   - component: {fileID: 1368376493}
   m_Layer: 7
   m_Name: ranged enemy fireball (4)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4972,7 +4972,7 @@ GameObject:
   - component: {fileID: 1393112147}
   m_Layer: 7
   m_Name: melee enemy (5)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5177,7 +5177,7 @@ GameObject:
   - component: {fileID: 1399677006}
   m_Layer: 7
   m_Name: ranged enemy ray (6)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5524,7 +5524,7 @@ GameObject:
   - component: {fileID: 1433708458}
   m_Layer: 6
   m_Name: Border Left
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5638,7 +5638,7 @@ GameObject:
   - component: {fileID: 1515361628}
   m_Layer: 7
   m_Name: ranged enemy ray (2)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6460,7 +6460,7 @@ GameObject:
   - component: {fileID: 1713315970}
   m_Layer: 7
   m_Name: ranged enemy ray (4)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6870,7 +6870,7 @@ GameObject:
   - component: {fileID: 1957567746}
   m_Layer: 7
   m_Name: ranged enemy ray (5)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7191,7 +7191,7 @@ GameObject:
   - component: {fileID: 1996552774}
   m_Layer: 7
   m_Name: melee enemy (3)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7506,7 +7506,7 @@ GameObject:
   - component: {fileID: 2025989123}
   m_Layer: 7
   m_Name: melee enemy (4)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
