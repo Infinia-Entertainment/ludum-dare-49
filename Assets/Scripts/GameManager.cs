@@ -9,7 +9,8 @@ namespace Wizard
         public static GameManager Instance { get; set; }
 
         public int EnemyCount;
-        
+        public int EnemiesKilled;
+
         private void Awake()
         {
             if (Instance != null && Instance != this)
@@ -17,6 +18,6 @@ namespace Wizard
 
             Instance = this;
         }
-        
+
     }
 }

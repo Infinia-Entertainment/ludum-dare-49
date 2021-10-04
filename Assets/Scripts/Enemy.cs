@@ -12,6 +12,7 @@ namespace Wizard
             if (_health <= 0)
             {
                 GameManager.Instance.EnemyCount--;
+                GameManager.Instance.EnemiesKilled++;
                 Destroy(gameObject);
             }
         }

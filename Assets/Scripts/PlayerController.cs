@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
     bool isFacingRight;
 
     bool lockMovement = false;
-
+    bool unlockInProcess = false;
     Transform prevWall;
     [SerializeField]
     AfterImage afterImages;
@@ -74,16 +74,28 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
+
         isGrounded = Physics2D.OverlapCircle(playersFeet.position, groundRadius, groundLayer);
+
+        if (isGrounded && (animator.GetCurrentAnimatorStateInfo(0).IsName("Jump up") || animator.GetCurrentAnimatorStateInfo(0).IsName("Fall")))
+        {
+            print("landed");
+            animator.SetTrigger("Land");
+        }
         if (isGrounded && lockMovement)
             lockMovement = false;
+        if(isSliding && lockMovement && unlockInProcess == false)
+        {
+            coroutine = LockMovement(0.5f);
+            StartCoroutine(coroutine);
+        }
         horizontalInput = Input.GetAxisRaw("Horizontal");
 
-       
+
 
         if (horizontalInput > 0)
             isFacingRight = true;
-        else if(horizontalInput < 0)
+        else if (horizontalInput < 0)
             isFacingRight = false;
 
         Slide();
@@ -91,7 +103,7 @@ public class PlayerController : MonoBehaviour
         if (isDashing == false && !lockMovement)
         {
             MoveHorizontally();
-        }      
+        }
     }
 
     void MoveHorizontally()
@@ -100,14 +112,14 @@ public class PlayerController : MonoBehaviour
     }
     void Jump()
     {
-            if (rb.velocity.y < 0) //if falling down
-            {
-                rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
-            }
-            else if (rb.velocity.y > 0 && !Input.GetButton("Jump") && lockMovement)
-            {
-                rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
-            }
+        if (rb.velocity.y < 0) //if falling down
+        {
+            rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+        }
+        else if (rb.velocity.y > 0 && !Input.GetButton("Jump") && lockMovement)
+        {
+            rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+        }
 
         if (Input.GetButtonDown("Jump") && isGrounded && !isSliding)
         {
@@ -115,6 +127,7 @@ public class PlayerController : MonoBehaviour
             // jumpCounter = jumpDuration;
             rb.velocity = Vector2.up * jumpForce;
             isGrounded = false;
+            animator.SetTrigger("Jump");
         }
         //if (Input.GetKey(KeyCode.Space) && !releaseJump)
         //{
@@ -135,7 +148,7 @@ public class PlayerController : MonoBehaviour
         if (dashCurrentCD == 0)
         {
             if (dashDir == 0)
-            {         
+            {
                 if (Input.GetKeyDown(KeyCode.F))
                 {
                     afterImages.activate = false;
@@ -155,7 +168,7 @@ public class PlayerController : MonoBehaviour
                     isDashing = false;
                     dashCurrentCD = dashCoolDown;
                     StartCoroutine("RefreshDashCD");
-                    if(hasSpeedBoost)
+                    if (hasSpeedBoost)
                         afterImages.activate = true;
 
                 }
@@ -176,24 +189,36 @@ public class PlayerController : MonoBehaviour
         {
             prevWall = WallHit.transform;
         }
-        WallHit = Physics2D.Raycast(transform.position, new Vector2(isFacingRight ? distanceToWall : -distanceToWall, 0), distanceToWall, groundLayer);
+        if(rb.velocity.x < 0 )
+        {
+            WallHit = Physics2D.Raycast(transform.position, new Vector2(-distanceToWall, 0), distanceToWall, groundLayer);
+            Debug.DrawRay(transform.position, new Vector2(-distanceToWall, 0), Color.blue);
+        }
+        else if(rb.velocity.x > 0)
+        {
+            WallHit = Physics2D.Raycast(transform.position, new Vector2(distanceToWall, 0), distanceToWall, groundLayer);
+            Debug.DrawRay(transform.position, new Vector2(distanceToWall, 0), Color.blue);
+        }
 
-            if (WallHit && isGrounded == false && horizontalInput != 0)
+        if (WallHit && isGrounded == false && horizontalInput != 0)
+        {
+            if (!lockMovement || prevWall != WallHit.transform)
             {
-                if (!lockMovement || prevWall != WallHit.transform)
-                {
+                    animator.SetBool("Slide", true);
                     isSliding = true;
                     rb.velocity = Vector2.zero;
-                }
             }
-            else if (horizontalInput != 0 && isSliding)
-            {
-                isSliding = false;
-            }
-            if (isSliding)
-            {
-                rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, slideSpeed, float.MaxValue));
-            }
+        }
+        else if (horizontalInput != 0 && isSliding)
+        {
+            isSliding = false;
+            animator.SetBool("Slide", false);
+        }
+
+        if (isSliding)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, slideSpeed, float.MaxValue));
+        }
 
     }
     void WallBounce()
@@ -201,10 +226,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isSliding)
         {
             isSliding = false;
+            animator.SetBool("Slide", false);
             if (WallHit)
             {
                 lockMovement = true;
-                Vector2 dir = gameObject.transform.position - WallHit.transform.position;
+                Vector2 dir = (Vector2)gameObject.transform.position - WallHit.point;
                 dir = new Vector2(dir.x < 0 ? -1 : 1, bounceHeight); ;
                 rb.AddForce(dir * bounceStrength, ForceMode2D.Impulse);
             }
@@ -217,9 +243,11 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator LockMovement(float lockTime)
     {
+        unlockInProcess = true;
         lockMovement = true;
         yield return new WaitForSeconds(lockTime);
         lockMovement = false;
+        unlockInProcess = false;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -230,6 +258,13 @@ public class PlayerController : MonoBehaviour
             afterImages.activate = true;
         }
     }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
 
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Obstacle") && isSliding)
+        {
+            isSliding = false;
+        } 
+    }
 
 }

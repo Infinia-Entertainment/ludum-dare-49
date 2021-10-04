@@ -7,6 +7,7 @@ TagManager:
   - Ground
   - Speed Boost
   - Wall
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -16,10 +17,10 @@ TagManager:
   - UI
   - Obstacle
   - Enemy
-  - 
+  - Ground
   - 
   - Player
-  - 
+  - Spell
   - 
   - 
   - 
