@@ -11,6 +11,8 @@ namespace Wizard
         [SerializeField] private Transform _spellFirePoint;
 
         private Collider2D _collider;
+        [SerializeField] private Animator _animator;
+
 
         private void Awake()
         {
@@ -21,6 +23,7 @@ namespace Wizard
         {
             if (Input.GetMouseButtonDown(0))
             {
+                _animator.SetTrigger("attack");
                 var fb = Instantiate(_fireball, _spellFirePoint.position, Quaternion.identity);
                 fb.GetComponent<Fireball>().Launch(Camera.main.ScreenToWorldPoint(Input.mousePosition), true);
 
@@ -30,6 +33,7 @@ namespace Wizard
             }
             else if (Input.GetMouseButtonDown(1))
             {
+                _animator.SetTrigger("attack");
                 var fb = Instantiate(_sparkleSpell, _spellFirePoint.position, Quaternion.identity);
                 fb.GetComponent<SparklyRay>().Launch(Camera.main.ScreenToWorldPoint(Input.mousePosition), true);
                 Physics2D.IgnoreCollision(fb.GetComponent<Collider2D>(), _collider);
