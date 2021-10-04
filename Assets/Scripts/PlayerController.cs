@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
     bool isFacingRight;
 
     bool lockMovement = false;
-
+    bool unlockInProcess = false;
     Transform prevWall;
     [SerializeField]
     AfterImage afterImages;
@@ -84,6 +84,11 @@ public class PlayerController : MonoBehaviour
         }
         if (isGrounded && lockMovement)
             lockMovement = false;
+        if(isSliding && lockMovement && unlockInProcess == false)
+        {
+            coroutine = LockMovement(0.5f);
+            StartCoroutine(coroutine);
+        }
         horizontalInput = Input.GetAxisRaw("Horizontal");
 
 
@@ -184,15 +189,24 @@ public class PlayerController : MonoBehaviour
         {
             prevWall = WallHit.transform;
         }
-        WallHit = Physics2D.Raycast(transform.position, new Vector2(isFacingRight ? distanceToWall : -distanceToWall, 0), distanceToWall, groundLayer);
+        if(rb.velocity.x < 0 )
+        {
+            WallHit = Physics2D.Raycast(transform.position, new Vector2(-distanceToWall, 0), distanceToWall, groundLayer);
+            Debug.DrawRay(transform.position, new Vector2(-distanceToWall, 0), Color.blue);
+        }
+        else if(rb.velocity.x > 0)
+        {
+            WallHit = Physics2D.Raycast(transform.position, new Vector2(distanceToWall, 0), distanceToWall, groundLayer);
+            Debug.DrawRay(transform.position, new Vector2(distanceToWall, 0), Color.blue);
+        }
 
         if (WallHit && isGrounded == false && horizontalInput != 0)
         {
             if (!lockMovement || prevWall != WallHit.transform)
             {
-                animator.SetBool("Slide", true);
-                isSliding = true;
-                rb.velocity = Vector2.zero;
+                    animator.SetBool("Slide", true);
+                    isSliding = true;
+                    rb.velocity = Vector2.zero;
             }
         }
         else if (horizontalInput != 0 && isSliding)
@@ -200,6 +214,7 @@ public class PlayerController : MonoBehaviour
             isSliding = false;
             animator.SetBool("Slide", false);
         }
+
         if (isSliding)
         {
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, slideSpeed, float.MaxValue));
@@ -228,9 +243,11 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator LockMovement(float lockTime)
     {
+        unlockInProcess = true;
         lockMovement = true;
         yield return new WaitForSeconds(lockTime);
         lockMovement = false;
+        unlockInProcess = false;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -241,6 +258,13 @@ public class PlayerController : MonoBehaviour
             afterImages.activate = true;
         }
     }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
 
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Obstacle") && isSliding)
+        {
+            isSliding = false;
+        } 
+    }
 
 }
