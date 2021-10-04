@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Wizard;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamageable
 {
     public float movSpeed = 10f;
     public float speedBoostMultiplier = 2.5f;
@@ -53,11 +54,22 @@ public class PlayerController : MonoBehaviour
     IEnumerator coroutine;
 
     Animator animator;
-    private void Start()
+
+    private int _currentHealth;
+    private int _maxHealth = 30;
+    public int CurrentHealth => _currentHealth;
+    public int MaxHealth => _maxHealth;
+
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         afterImages = GetComponent<AfterImage>();
         animator = GetComponent<Animator>();
+    }
+
+    private void Start()
+    {
+        _currentHealth = _maxHealth;
         dashCounter = dashDuration;
         dashCurrentCD = 0;
     }
@@ -84,7 +96,7 @@ public class PlayerController : MonoBehaviour
         }
         if (isGrounded && lockMovement)
             lockMovement = false;
-        if(isSliding && lockMovement && unlockInProcess == false)
+        if (isSliding && lockMovement && unlockInProcess == false)
         {
             coroutine = LockMovement(0.5f);
             StartCoroutine(coroutine);
@@ -189,12 +201,12 @@ public class PlayerController : MonoBehaviour
         {
             prevWall = WallHit.transform;
         }
-        if(rb.velocity.x < 0 )
+        if (rb.velocity.x < 0)
         {
             WallHit = Physics2D.Raycast(transform.position, new Vector2(-distanceToWall, 0), distanceToWall, groundLayer);
             Debug.DrawRay(transform.position, new Vector2(-distanceToWall, 0), Color.blue);
         }
-        else if(rb.velocity.x > 0)
+        else if (rb.velocity.x > 0)
         {
             WallHit = Physics2D.Raycast(transform.position, new Vector2(distanceToWall, 0), distanceToWall, groundLayer);
             Debug.DrawRay(transform.position, new Vector2(distanceToWall, 0), Color.blue);
@@ -204,9 +216,9 @@ public class PlayerController : MonoBehaviour
         {
             if (!lockMovement || prevWall != WallHit.transform)
             {
-                    animator.SetBool("Slide", true);
-                    isSliding = true;
-                    rb.velocity = Vector2.zero;
+                animator.SetBool("Slide", true);
+                isSliding = true;
+                rb.velocity = Vector2.zero;
             }
         }
         else if (horizontalInput != 0 && isSliding)
@@ -264,7 +276,18 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Obstacle") && isSliding)
         {
             isSliding = false;
-        } 
+        }
     }
 
+    public void OnDamage(int damage)
+    {
+        _currentHealth -= damage;
+        if (_currentHealth <= 0) OnDeath();
+    }
+
+    public void OnDeath()
+    {
+        Debug.Log("player Died");
+        Destroy(gameObject);
+    }
 }
