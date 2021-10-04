@@ -121,7 +121,7 @@ namespace Wizard.Unstability
         {
             _availableUnstabilityEvents.RemoveAll(e => e == UnstabilityEvent.SlowTime);
             _availableUnstabilityEvents.RemoveAll(e => e == UnstabilityEvent.FastTime);
-            Time.timeScale = 0.5f;
+            Time.timeScale = 0.75f;
             yield return new WaitForSeconds(30f);
             Time.timeScale = 1f;     
             _availableUnstabilityEvents.Add(UnstabilityEvent.SlowTime);
@@ -131,7 +131,7 @@ namespace Wizard.Unstability
         {
             _availableUnstabilityEvents.RemoveAll(e => e == UnstabilityEvent.SlowTime);
             _availableUnstabilityEvents.RemoveAll(e => e == UnstabilityEvent.FastTime);
-            Time.timeScale = 1.5f;        
+            Time.timeScale = 1.25f;        
             yield return new WaitForSeconds(30f);
             Time.timeScale = 1f;
             _availableUnstabilityEvents.Add(UnstabilityEvent.SlowTime);

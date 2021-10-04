@@ -654,6 +654,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 378a61c460b459849923492b4f758551, type: 3}
+--- !u!1 &1399647353 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3877597924928272867, guid: d047ee3b5ff0309428e25157eeb8619f, type: 3}
+  m_PrefabInstance: {fileID: 3877597925776807171}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1399647359 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3877597924928272864, guid: d047ee3b5ff0309428e25157eeb8619f, type: 3}
+  m_PrefabInstance: {fileID: 3877597925776807171}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1399647360
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399647353}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1862726192
 GameObject:
   m_ObjectHideFlags: 0
@@ -872,10 +901,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3877597924928272866, guid: d047ee3b5ff0309428e25157eeb8619f, type: 3}
+      propertyPath: _spellFirePoint
+      value: 
+      objectReference: {fileID: 1399647359}
     - target: {fileID: 3877597924928272867, guid: d047ee3b5ff0309428e25157eeb8619f, type: 3}
       propertyPath: m_Name
       value: DummyPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 3877597924928272869, guid: d047ee3b5ff0309428e25157eeb8619f, type: 3}
+      propertyPath: playersFeet
+      value: 
+      objectReference: {fileID: 1399647359}
     - target: {fileID: 3877597924959153557, guid: d047ee3b5ff0309428e25157eeb8619f, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 

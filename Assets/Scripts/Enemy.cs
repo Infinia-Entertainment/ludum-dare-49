@@ -1,14 +1,14 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Wizard
 {
     public class Enemy : MonoBehaviour, IDamageable
     {
         private int _currentHealth;
-        private int _maxHealth = 1;
+        [FormerlySerializedAs("_health")][SerializeField]private int _maxHealth = 1;
         public int CurrentHealth => _currentHealth;
         public int MaxHealth => _maxHealth;
-
 
         private void Start()
         {
