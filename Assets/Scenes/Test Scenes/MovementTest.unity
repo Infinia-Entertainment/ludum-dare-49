@@ -326,9 +326,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: ee1c03afd9e600e49b825087b30cc280, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.38431373}
+  m_Color: {r: 0.7075472, g: 0.50325066, b: 0.2770114, a: 0.38431373}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -499,7 +499,7 @@ MonoBehaviour:
   dashDuration: 0.1
   dashCoolDown: 2
   wallBounceTime: 0.05
-  slideSpeed: -1
+  slideSpeed: -0.6
   distanceToWall: 0.48
   bounceStrength: 15
   bounceHeight: 1.4
