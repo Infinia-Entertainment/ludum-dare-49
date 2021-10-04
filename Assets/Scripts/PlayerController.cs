@@ -242,7 +242,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isSliding)
         {
             isSliding = false;
-            _animator.SetBool("Slide", false);
+            // _animator.SetBool("Slide", false);
             if (WallHit)
             {
                 lockMovement = true;

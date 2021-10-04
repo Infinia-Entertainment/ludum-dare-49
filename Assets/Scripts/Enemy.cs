@@ -4,7 +4,7 @@ namespace Wizard
 {
     public class Enemy : MonoBehaviour, IDamageable
     {
-        private int _health = 1;
+        [SerializeField]private int _health = 1;
 
         public void OnDamage(int damage)
         {
